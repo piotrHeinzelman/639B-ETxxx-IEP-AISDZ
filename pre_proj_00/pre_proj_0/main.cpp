@@ -9,9 +9,13 @@ using namespace std;
 Algorytmy i Struktury Danych, zima 2021/2022
 Zadanie p0
 Zwyk³¹ tablicê statyczn¹ P[n] (n -sta³a) wype³niæ wylosowanymi rekordami o znaczaj¹cymi wspó³rzêdne
-ca³kowite (x, y) punktów na p³aszczyŸniez zakresu <G, G>(G –sta³a).
+ca³kowite (x, y) punktów na p³aszczyŸnie z zakresu <G, G>(G –sta³a).
 
-*** zakres <-G, G> *** ???
+  ********************
+  ???
+  ???  czy zakres to <-G, G> ??? (innymi s³owy -G < x < G ) ?
+  ???
+  *********************
 
 Nastêpnie:
 
@@ -39,23 +43,27 @@ struct Point {
     int y;
 };
 
+struct Nexus {
+    //Point ?
+};
 
-Point *constructor(){  //d + rand() % (g+1-d)
+
+
+Point *constructor(){  //d + rand() % (g+1-d) //printf( "\nPunkt(%i,%i)" , ptr->x , ptr->y );
     Point *ptr = new Point();
-          (*ptr).x = rand()%(G+1);
-            ptr->y = rand()%(G+1);
-            //printf( "\nPunkt(%i,%i)" , ptr->x , ptr->y );
+          (*ptr).x = rand()%(G+G+1)-G;
+            ptr->y = rand()%(G+G+1)-G;
+
     return ptr;
 }
 
 // unused
 void toString( Point *ptr ){
-   //printf( "\nPunkt(%i,%i)" , (*ptr).x , ptr->y );
+   printf( "\nPunkt(%i,%i)" , (*ptr).x , ptr->y );
 }
 
 void printArray( Point *ptr[] ){
    for ( int i=0 ; i<n ; i++) {
-    //    printf("?");
    printf( "\nPunkt(%i,%i)" , (*ptr[i]).x , ptr[i]->y );
    }
 }
@@ -66,6 +74,9 @@ int main(){
 
 // prepare rand
     srand( time(NULL));
+    int overNum=0;
+    int underNum=0;
+
 
 //1
     Point* P[n];
@@ -75,6 +86,16 @@ int main(){
     }
 
     printArray( P );
+
+    //Test
+    //overNum++; printf( "\n\noverNum: %i, %i, %i, %i",overNum );
+
+//2
+    for ( int i=0 ; i<n; i++ ){
+        printf("\nPoint: ( %i, %i); addr?:[0x%x], INFO(&P=%x)" , (*P[i]).x , P[i]->y , *P+i , &P[i] );
+    }
+
+
 
   //  printArray( P );
 
@@ -91,7 +112,7 @@ int main(){
 
 
     //P[n];
-    cout << endl << endl;
+    cout << endl << endl ; // (char)0x0a <<(char)0x0d;
     system("pause");
     return 0;
 }
