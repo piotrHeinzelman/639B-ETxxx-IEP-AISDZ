@@ -34,37 +34,40 @@ Wskazówki:
    ile tych rekordów  bêdzie w ka¿dej tabli
 
 */
-
+const bool info=true;
 const int n=9;
 const int G=20;
+int thisX;
+int num;
 
 struct Point {
     int x;
     int y;
 };
 
-struct Nexus {
-    //Point ?
-};
+Point *ary;
 
 
 
-Point *constructor(){  //d + rand() % (g+1-d) //printf( "\nPunkt(%i,%i)" , ptr->x , ptr->y );
+Point *constructor(){  //d + rand() % (g+1-d)
     Point *ptr = new Point();
           (*ptr).x = rand()%(G+G+1)-G;
             ptr->y = rand()%(G+G+1)-G;
-
+                                         if (info) printf("\n Constructor :: Point *ptr = new Point(); *ptr= %i , ptr= %i" ,*ptr ,ptr );
     return ptr;
 }
 
 // unused
+/*
 void toString( Point *ptr ){
-   printf( "\nPunkt(%i,%i)" , (*ptr).x , ptr->y );
+   printf( "\nPunkt(%  i,%  i)" , (*ptr).x , ptr->y );
 }
-
-void printArray( Point *ptr[] ){
-   for ( int i=0 ; i<n ; i++) {
-   printf( "\nPunkt(%i,%i)" , (*ptr[i]).x , ptr[i]->y );
+*/
+void printArray( Point* ary[] ){
+   for ( int i=0 ; i<sizeof(ary) ; i++) {
+        cout << endl << ary[i];
+//       printf ("\n>%  1" , (*ary[i]).x);
+//   printf( "\nPunkt(%i,%i)" , (*ptr[i]).x , ptr[i]->y );
    }
 }
 
@@ -85,34 +88,47 @@ int main(){
         P[i] = constructor();
     }
 
-    printArray( P );
+
 
     //Test
     //overNum++; printf( "\n\noverNum: %i, %i, %i, %i",overNum );
 
 //2
     for ( int i=0 ; i<n; i++ ){
-        printf("\nPoint: ( %i, %i); addr?:[0x%x], INFO(&P=%x)" , (*P[i]).x , P[i]->y , *P+i , &P[i] );
+        printf("\n  Point: ( %+ .2d, %+ .2d )" , (*P[i]).x , P[i]->y );
+                if ( info )   printf("\n scanTable: i:%i, P[i]=%i, *P[i]=%i, *P[i+1]=%i" , i, P[i], *P[i], *P[i+1] );
+        if ( P[i]->x == 0 ) continue;
+        if ( P[i]->x > 0 ) { overNum++; continue;}
+        underNum++;
     }
 
 
-
-  //  printArray( P );
-
-
-//cout <<  rand() % (G+1) << endl;
+    Point* overAry = new Point[overNum];
+    Point* underAry = new Point[underNum];
+                 if ( info )   printf("\noverAry: %x , *overAry=%x , &overAry=%x" , overAry , *overAry , &overAry);
 
 
-    for ( int i=0; i<n; i++) {
-        toString( constructor() );
-        //cout << "constructor" << endl;
+    overNum-=overNum;
+    underNum-=underNum;
+
+    for ( int i=0 ; i<n; i++ ){
+        thisX = (*P[i]).x;
+        if (thisX==0) continue;
+        if ( thisX>0) {
+        ary = overAry;
+        num = overNum;
+        } else {
+        ary = underAry;
+        num = underNum;
+        }
+        ary[num]=*P[i];
     }
-    //int r = rand() % G ;
-    //cout << "Losuje wektor: " << r << endl;
+
+//    printArray( overAry );
+    //printArray( underAry );
 
 
-    //P[n];
-    cout << endl << endl ; // (char)0x0a <<(char)0x0d;
-    system("pause");
+    printf("\n\n");
+    //system("pause");
     return 0;
 }
