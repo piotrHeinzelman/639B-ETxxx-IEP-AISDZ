@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1639242692 source:c:\_okno_\algorytmyistruktury\639b-etxxx-iep-aisdz\pre_proj_00\pre_proj_0\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+
