@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 using namespace std;
 
@@ -37,6 +38,10 @@ Wskazówki:
 
 const int n=9;
 const int G=20;
+int underNum=0;
+int overNum=0;
+
+
 
 int getRand(){
     return rand()%(G+G+1)-G;
@@ -55,13 +60,47 @@ int main(){
     srand( time(NULL));
 
     Point P[n];
+    cout << endl << "       Tablica P[" << n << "]\n";
+
     for ( int i=0; i<n ; i++) {
         P[i].x=getRand();
         P[i].y=getRand();
+        printf("\n   :   %  .2i  ,   %  .2i   :",P[i].x, P[i].y );
+    }
+    cout << endl << endl << endl << endl ;
+
+    for ( int i=0; i<n; i++ ){
+        if ( P[i].x==0) continue;
+        if ( P[i].x>0 ) { overNum++; continue; }
+        underNum++;
+    }
+
+    Point*  overAry = new Point[overNum];
+    Point* underAry = new Point[underNum];
+
+    overNum-=overNum;
+    underNum-=underNum;
+
+    for ( int i=0; i<n; i++){
+        if ( P[i].x==0) continue;
+        if ( P[i].x>0 ) { overAry[overNum]=P[i]; overNum++; continue; }
+        underAry[underNum]=P[i];
+        underNum++;
+    }
+
+    cout << "Tablica punktów powy¿ej osi: (" << overNum <<")\n";
+    for ( int i=0; i<overNum;i++){
+        cout << endl << "i: " << i << " x: "<<overAry[i].x << ", y: " << overAry[i].y ;
+    }
+
+    cout << "\n\n\nTablica punktów poni¿ej osi: (" << underNum <<")\n";
+    for ( int i=0; i<underNum;i++){
+        cout << endl << "i: " << i << " x: "<<underAry[i].x << ", y: " << underAry[i].y ;
     }
 
 
-    printf ( "? %i" , getRand() );
+    delete[] overAry;
+    delete[] underAry;
 
     printf("\n\n");
     //system("pause");
