@@ -34,42 +34,18 @@ Wskazówki:
    ile tych rekordów  bêdzie w ka¿dej tabli
 
 */
-const bool info=true;
+
 const int n=9;
 const int G=20;
-int thisX;
-int num;
 
-struct Point {
-    int x;
-    int y;
+int getRand(){
+    return rand()%(G+G+1)-G;
+}
+
+struct Point{
+    int x, y;
 };
 
-Point *ary;
-
-
-
-Point *constructor(){  //d + rand() % (g+1-d)
-    Point *ptr = new Point();
-          (*ptr).x = rand()%(G+G+1)-G;
-            ptr->y = rand()%(G+G+1)-G;
-                                         if (info) printf("\n Constructor :: Point *ptr = new Point(); *ptr= %i , ptr= %i" ,*ptr ,ptr );
-    return ptr;
-}
-
-// unused
-/*
-void toString( Point *ptr ){
-   printf( "\nPunkt(%  i,%  i)" , (*ptr).x , ptr->y );
-}
-*/
-void printArray( Point* ary[] ){
-   for ( int i=0 ; i<sizeof(ary) ; i++) {
-        cout << endl << ary[i];
-//       printf ("\n>%  1" , (*ary[i]).x);
-//   printf( "\nPunkt(%i,%i)" , (*ptr[i]).x , ptr[i]->y );
-   }
-}
 
 
 
@@ -77,56 +53,15 @@ int main(){
 
 // prepare rand
     srand( time(NULL));
-    int overNum=0;
-    int underNum=0;
 
-
-//1
-    Point* P[n];
-
-    for ( int i=0 ; i<n ; i++) {
-        P[i] = constructor();
+    Point P[n];
+    for ( int i=0; i<n ; i++) {
+        P[i].x=getRand();
+        P[i].y=getRand();
     }
 
 
-
-    //Test
-    //overNum++; printf( "\n\noverNum: %i, %i, %i, %i",overNum );
-
-//2
-    for ( int i=0 ; i<n; i++ ){
-        printf("\n  Point: ( %+ .2d, %+ .2d )" , (*P[i]).x , P[i]->y );
-                if ( info )   printf("\n scanTable: i:%i, P[i]=%i, *P[i]=%i, *P[i+1]=%i" , i, P[i], *P[i], *P[i+1] );
-        if ( P[i]->x == 0 ) continue;
-        if ( P[i]->x > 0 ) { overNum++; continue;}
-        underNum++;
-    }
-
-
-    Point* overAry = new Point[overNum];
-    Point* underAry = new Point[underNum];
-                 if ( info )   printf("\noverAry: %x , *overAry=%x , &overAry=%x" , overAry , *overAry , &overAry);
-
-
-    overNum-=overNum;
-    underNum-=underNum;
-
-    for ( int i=0 ; i<n; i++ ){
-        thisX = (*P[i]).x;
-        if (thisX==0) continue;
-        if ( thisX>0) {
-        ary = overAry;
-        num = overNum;
-        } else {
-        ary = underAry;
-        num = underNum;
-        }
-        ary[num]=*P[i];
-    }
-
-//    printArray( overAry );
-    //printArray( underAry );
-
+    printf ( "? %i" , getRand() );
 
     printf("\n\n");
     //system("pause");
