@@ -123,7 +123,7 @@ void addSynoToWord( Word* &wrd, string newSyno ){
                     Syno* tmp = prev->next;
                     prev->next= new Syno();
                     prev->next->synoValue = newSyno;
-                    prev->next->next==elem;
+                    prev->next->next=elem; // był podwójny == // POPRAWKA 1
                     return;
                 }
                 prev=elem;
@@ -181,8 +181,7 @@ int main()
     Word* myTreeHead=NULL;
 
     file.open(fileName.c_str());
-    if (!file.is_open()) return 1;
-
+    if (!file.is_open()) { cout << "Problem z plikiem: " << fileName ;  return 1; } // dodałem wyswietlenie napisu jesli nie ma pliku // POPRAWKA 2
 
     getline( file,ln );
     Word* currentWord = addWord( myTreeHead , ln );
